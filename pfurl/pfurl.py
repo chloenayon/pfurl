@@ -1112,9 +1112,13 @@ class Pfurl():
             d_ret['status'] = d_ret['remoteServer']['status']
             d_ret['msg']    = d_ret['remoteServer']['msg']
         else:
-            d_ret['status'] = d_ret['remoteServer']['decode']['status']
-            d_ret['msg']    = d_ret['remoteServer']['decode']['msg']
-            # raise Exception('Invalid Response')
+            try:
+                d_ret['status'] = d_ret['remoteServer']['decode']['status']
+                d_ret['msg'] = d_ret['remoteServer']['decode']['msg']
+            except TypeError:
+                d_ret['status'] = False
+                d_ret['msg'] = 'TypeError: Invalid response'
+                # raise Exception('Invalid Response')
 
         return d_ret
 
